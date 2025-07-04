@@ -77,6 +77,22 @@ class ReporteadorController extends Controller
                     return response()->json(['error' => 'Tipo de reporte no soportado'], 400);
             }
 
+            // Si el resultado es una colección de Personajes, la transformamos para aplanar las relaciones
+            if ($resultado instanceof \Illuminate\Database\Eloquent\Collection && $resultado->isNotEmpty() && $resultado->first() instanceof Personaje) {
+                $resultado = $resultado->map(function ($personaje) {
+                    return [
+                        'id' => $personaje->id,
+                        'nombre' => $personaje->nombre,
+                        'estado' => $personaje->estado,
+                        'especie' => $personaje->especie,
+                        'genero' => $personaje->genero,
+                        'imagen' => $personaje->imagen,
+                        'locacion' => $personaje->locacion ? $personaje->locacion->nombre : 'N/A',
+                        'episodios' => $personaje->episodios->pluck('nombre')->implode(', '),
+                    ];
+                });
+            }
+
             return response()->json($resultado);
 
         } catch (\Exception $e) {

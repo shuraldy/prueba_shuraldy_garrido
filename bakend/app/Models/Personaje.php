@@ -8,6 +8,13 @@ class Personaje extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that should be hidden for serialization.
+     * 
+     * @var array
+     */
+    protected $hidden = ['url', 'creado', 'created_at', 'updated_at'];
+
     protected $fillable = [
         'nombre', 'estado', 'especie', 'tipo', 'genero', 'imagen', 'url', 'creado'
     ];
