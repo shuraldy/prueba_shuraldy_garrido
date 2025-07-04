@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Reporte: Personajes por Locación</h2>
+  <p class="text-muted mb-4">
+    Listado de todas las locaciones y los personajes que se encuentran en cada una.
+  </p>
+
+  <div *ngIf="isLoading" class="d-flex justify-content-center mt-5">
+    <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger mt-4">
+    <strong><i class="bi bi-exclamation-triangle-fill"></i> Error:</strong> {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && reporte.length > 0" class="row">
+    <div *ngFor="let item of reporte" class="col-md-6 col-lg-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-dark text-white">
+          {{ item.locacion }}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let personaje of item.personajes" class="list-group-item">
+            {{ personaje }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !error && reporte.length === 0" class="alert alert-info mt-4">
+    <strong><i class="bi bi-info-circle-fill"></i> No hay datos:</strong> No se encontraron locaciones con personajes para mostrar.
+  </div>
+</div>

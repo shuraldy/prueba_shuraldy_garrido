@@ -4,6 +4,7 @@ import { CharacterSearchComponent } from './character-search/character-search.co
 import { ReporteadorComponent } from './reporteador/reporteador.component';
 import { PersonajesAscComponent } from './personajes-asc/personajes-asc.component';
 import { PersonajesPorEpisodioComponent } from './personajes-por-episodio/personajes-por-episodio.component';
+import { PersonajesLocacionComponent } from './personajes-locacion/personajes-locacion.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,7 @@ export const routes: Routes = [
       { path: 'reporteador', component: ReporteadorComponent },
       { path: 'personajes-asc', component: PersonajesAscComponent },
       { path: 'personajes-por-episodio', component: PersonajesPorEpisodioComponent },
+      { path: 'personajes-por-locacion', component: PersonajesLocacionComponent },
     ]
   }
 ];

@@ -1,13 +1,19 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
-import { provideRouter, RouterModule } from '@angular/router';
+import { provideRouter } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
 import { routes } from './app.routes';
-import { DashboardComponent } from './dashboard/dashboard.component';
+
+// Registrar el locale español
+registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
-    provideRouter(routes)
+    provideRouter(routes),
+    { provide: LOCALE_ID, useValue: 'es' } // Establecer español como locale por defecto
   ]
 };
