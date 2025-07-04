@@ -97,8 +97,13 @@ export class CharacterSearchComponent implements OnInit {
         this.closeDetail();
       },
       error: (err) => {
-        window.alert('Ocurrió un error al importar el personaje.');
-        console.error('Error al importar:', err);
+        window.alert('Ocurrió un error al importar el personaje. Revisa la consola para más detalles.');
+        console.error('--- DETALLE DEL ERROR DE VALIDACIÓN ---');
+        console.error('Status:', err.status);
+        console.error('Mensaje:', err.error?.message);
+        console.error('Errores específicos:', err.error?.errors);
+        console.error('--- FIN DEL DETALLE ---');
+        console.error('Objeto de error completo:', err);
       }
     });
   }

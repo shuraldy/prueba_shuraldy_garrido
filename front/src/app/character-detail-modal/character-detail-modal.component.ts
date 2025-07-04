@@ -54,29 +54,35 @@ export class CharacterDetailModalComponent implements OnInit {
   }
 
   handleImport() {
-    // Armar el JSON según lo solicitado
-    const importData = this.episodes.map(ep => ({
-      id: ep.id,
+    // Armar el JSON directamente en español para enviar al backend
+    const episodiosEs = this.episodes.map(ep => ({
       nombre: ep.name,
       fecha_emision: ep.air_date,
-      codigo_episodio: ep.episode
+      codigo_episodio: ep.episode,
+      url: ep.url
     }));
-    this.import.emit({
-      personaje: {
-        id: this.character.id,
-        name: this.character.name,
-        status: this.character.status,
-        species: this.character.species,
-        type: this.character.type,
-        gender: this.character.gender,
-        origin: this.character.origin,
-        location: this.character.location,
-        image: this.character.image,
-        episode: this.character.episode,
-        url: this.character.url,
-        created: this.character.created
-      },
-      episodios: importData
-    });
+
+    const personajeEs = {
+      nombre: this.character.name,
+      estado: this.character.status,
+      especie: this.character.species,
+      tipo: this.character.type,
+      genero: this.character.gender,
+      imagen: this.character.image,
+      url: this.character.url,
+      creado: this.character.created,
+      locacion: {
+        nombre: this.character.location.name,
+        url: this.character.location.url
+      }
+    };
+
+    // Combinar todo en un solo objeto plano
+    const payload = {
+      ...personajeEs,
+      episodios: episodiosEs
+    };
+
+    this.import.emit(payload);
   }
 }
