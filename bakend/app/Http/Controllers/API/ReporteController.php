@@ -105,4 +105,40 @@ class ReporteController extends Controller
 
         return response()->json($reporte);
     }
+
+    // --- Métodos para obtener opciones para los filtros del reporteador ---
+
+    public function getOpcionesLocaciones()
+    {
+        $locaciones = Locacion::orderBy('nombre')->distinct()->pluck('nombre');
+        return response()->json($locaciones);
+    }
+
+    public function getOpcionesPersonajes()
+    {
+        $personajes = Personaje::orderBy('nombre')->distinct()->pluck('nombre');
+        return response()->json($personajes);
+    }
+
+    public function getOpcionesEpisodios()
+    {
+        $episodios = Episodio::orderBy('nombre')->distinct()->pluck('nombre');
+        return response()->json($episodios);
+    }
+
+    public function getOpcionesEstados()
+    {
+        try {
+            // Usamos una consulta directa para máxima fiabilidad y evitar problemas de Eloquent.
+            $estados = DB::table('personajes')
+                ->select('estado')
+                ->whereNotNull('estado')
+                ->distinct()
+                ->orderBy('estado')
+                ->pluck('estado');
+            return response()->json($estados);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'No se pudieron obtener los estados.', 'mensaje' => $e->getMessage()], 500);
+        }
+    }
 }
