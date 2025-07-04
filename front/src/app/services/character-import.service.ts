@@ -8,12 +8,15 @@ export class CharacterImportService {
 
   // Este método está preparado para enviar el JSON a un endpoint futuro
   importCharacter(data: any): Observable<any> {
-    // Aquí se podría hacer un POST real en el futuro
-    // return this.http.post('ENDPOINT_A_DEFINIR', data);
-    console.log('[CharacterImportService] JSON preparado para enviar:', data);
-    return new Observable(observer => {
-      observer.next({ success: true });
-      observer.complete();
-    });
+    console.log('[CharacterImportService] JSON para enviar (ya en español):', data);
+    return this.http.post(
+      'http://localhost:8000/api/personajes',
+      data,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        observe: 'body',
+        responseType: 'json'
+      }
+    );
   }
 }

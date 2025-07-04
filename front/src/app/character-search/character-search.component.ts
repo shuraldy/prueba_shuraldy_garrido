@@ -89,15 +89,23 @@ export class CharacterSearchComponent implements OnInit {
   }
 
   handleImport(data: any) {
-    // Imprime el JSON en consola
     console.log('Datos a importar:', data);
-    // Llama al servicio de importación (por ahora solo imprime, luego se define el endpoint)
     this.importService.importCharacter(data).subscribe({
       next: (res) => {
+        window.alert('¡Personaje importado exitosamente!');
         console.log('Respuesta del importService:', res);
+        this.closeDetail();
+      },
+      error: (err) => {
+        window.alert('Ocurrió un error al importar el personaje. Revisa la consola para más detalles.');
+        console.error('--- DETALLE DEL ERROR DE VALIDACIÓN ---');
+        console.error('Status:', err.status);
+        console.error('Mensaje:', err.error?.message);
+        console.error('Errores específicos:', err.error?.errors);
+        console.error('--- FIN DEL DETALLE ---');
+        console.error('Objeto de error completo:', err);
       }
     });
-    this.closeDetail();
   }
 }
 
