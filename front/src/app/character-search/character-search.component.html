@@ -1,0 +1,51 @@
+
+<div class="mb-4 d-flex justify-content-center">
+  <form (submit)="$event.preventDefault(); onSearch()" class="input-group w-50">
+    <input [(ngModel)]="searchTerm" name="search" class="form-control" placeholder="Buscar personaje por nombre...">
+    <button class="btn btn-primary" type="submit">Buscar</button>
+    <button class="btn btn-success ms-2" type="button" (click)="getAllCharacters()">Todos los personajes</button>
+  </form>
+</div>
+
+<div *ngIf="loading" class="text-center my-4">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+<app-character-detail-modal
+  *ngIf="modalOpen && selectedCharacter"
+  [character]="selectedCharacter"
+  [open]="modalOpen"
+  (close)="closeDetail()"
+  (import)="handleImport($event)">
+</app-character-detail-modal>
+
+<div *ngIf="error && !loading" class="alert alert-warning text-center">
+  {{ error }}
+</div>
+
+<div *ngIf="!loading && !error">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+    <div class="col" *ngFor="let character of characters">
+      <div class="card h-100 text-center" (click)="openDetail(character)" style="cursor:pointer;">
+        <img [src]="character.image" [alt]="character.name" class="card-img-top mx-auto mt-2" style="width: 200px; height: 200px; object-fit: cover;">
+        <div class="card-body p-2">
+          <h6 class="card-title mb-0">{{ character.name }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mt-4 d-flex justify-content-center align-items-center" *ngIf="totalPages > 1">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="page === 1">
+        <button class="page-link" (click)="goToPage(page - 1)"><</button>
+      </li>
+      <li class="page-item disabled"><span class="page-link">Página {{ page }} de {{ totalPages }}</span></li>
+      <li class="page-item" [class.disabled]="page === totalPages">
+        <button class="page-link" (click)="goToPage(page + 1)">></button>
+      </li>
+    </ul>
+  </nav>
+</div>

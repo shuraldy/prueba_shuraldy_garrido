@@ -1,0 +1,6 @@
+.modal {
+  display: block;
+}
+.modal-backdrop {
+  display: none;
+}

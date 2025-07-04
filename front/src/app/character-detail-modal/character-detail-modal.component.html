@@ -1,0 +1,41 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="open" style="background:rgba(0,0,0,0.6);">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalles del personaje</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="handleClose()"></button>
+      </div>
+      <div class="modal-body" *ngIf="character">
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <img [src]="character.image" [alt]="character.name" class="img-fluid rounded mb-2" style="width: 200px; height: 200px; object-fit: cover;">
+            <h5 class="mt-2">{{ character.name }}</h5>
+            <span class="badge bg-info">{{ character.status }}</span>
+          </div>
+          <div class="col-md-8">
+            <ul class="list-group mb-3">
+              <li class="list-group-item"><strong>Especie:</strong> {{ character.species }}</li>
+              <li class="list-group-item"><strong>Género:</strong> {{ character.gender }}</li>
+              <li class="list-group-item"><strong>Planeta de origen:</strong> {{ character.origin.name }}</li>
+              <li class="list-group-item"><strong>Ubicación actual:</strong> {{ character.location.name }}</li>
+            </ul>
+            <h6>Episodios:</h6>
+            <div *ngIf="loadingEpisodes" class="text-center my-3">
+              <div class="spinner-border text-primary" role="status"></div>
+            </div>
+            <ul class="list-group" *ngIf="!loadingEpisodes && episodes.length">
+              <li class="list-group-item" *ngFor="let ep of episodes">
+                <strong>{{ ep.episode }}</strong>: {{ ep.name }} <span class="text-muted">({{ ep.air_date }})</span>
+              </li>
+            </ul>
+            <div *ngIf="!loadingEpisodes && !episodes.length" class="text-muted">No hay episodios disponibles.</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="handleClose()">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="handleImport()">Importar</button>
+      </div>
+    </div>
+  </div>
+</div>

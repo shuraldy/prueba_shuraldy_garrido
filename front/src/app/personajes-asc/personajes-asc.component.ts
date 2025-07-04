@@ -1,0 +1,37 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-personajes-asc',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="container">
+      <h2 class="mb-4"><i class="bi bi-sort-alpha-down"></i> Personajes en Orden Ascendente</h2>
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of [{nombre:'Beth Smith', especie:'Humano', estado:'Vivo'},{nombre:'Jerry Smith', especie:'Humano', estado:'Vivo'},{nombre:'Morty Smith', especie:'Humano', estado:'Vivo'},{nombre:'Rick Sanchez', especie:'Humano', estado:'Vivo'}]; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.especie }}</td>
+            <td>{{ p.estado }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-info mt-3">Este es un demo visual. Próximamente verás los datos reales.</div>
+    </div>
+  `
+})
+export class PersonajesAscComponent {
+  constructor() {
+    console.log('PersonajesAscComponent montado');
+  }
+}

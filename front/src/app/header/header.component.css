@@ -1,0 +1,7 @@
+.navbar-brand img {
+  border-radius: 8px;
+}
+
+.navbar .rounded-circle {
+  border: 2px solid #fff;
+}

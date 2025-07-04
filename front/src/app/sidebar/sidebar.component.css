@@ -1,0 +1,23 @@
+.sidebar {
+  min-width: 220px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #343a40 60%, #23272b 100%);
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+.nav-link {
+  font-size: 1.1rem;
+  transition: background 0.2s, color 0.2s;
+  border-radius: 6px;
+}
+.nav-link:hover {
+  background: #495057;
+  color: #fff;
+}
+.sidebar h5 i {
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+.nav-link i {
+  font-size: 1.2em;
+  margin-right: 8px;
+}
